@@ -1,4 +1,6 @@
 package org.fossify.keyboard.views
+import android.inputmethodservice.Keyboard
+import android.inputmethodservice.Keyboard.Key
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -1949,15 +1951,16 @@ class MyKeyboardView @JvmOverloads constructor(
         }
     }
 
-    override fun onLongPress(popupKey: Key): Boolean {
+override fun onLongPress(popupKey: Key): Boolean {
     return if (popupKey.codes[0] == MyKeyboard.KEYCODE_EMOJI) {
-        // Long press emoji key → open emoji palette
-        openEmojiPalette()
+        // Long press emoji key → ζητάμε από το IME να ανοίξει το emoji panel
+        (context as? SimpleKeyboardIME)?.keyboardView?.openEmojiPalette()
         true
     } else {
         super.onLongPress(popupKey)
     }
 }
+
 
 
     
