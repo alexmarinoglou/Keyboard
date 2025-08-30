@@ -249,8 +249,19 @@ class SimpleKeyboardIME : InputMethodService(), OnKeyboardActionListener, Shared
             }
 
             MyKeyboard.KEYCODE_EMOJI -> {
-                keyboardView?.openEmojiPalette()
-            }
+    // Short press → switch language
+    val enabledLangs = baseContext.config.selectedLanguages.toList()
+    val currentLang = baseContext.config.keyboardLanguage
+    val currentIndex = enabledLangs.indexOf(currentLang)
+    val nextIndex = (currentIndex + 1) % enabledLangs.size
+    baseContext.config.keyboardLanguage = enabledLangs[nextIndex]
+
+    val keyboardXml = getKeyboardLayoutXML()
+    keyboard = MyKeyboard(this, keyboardXml, enterKeyType)
+    keyboardView!!.setKeyboard(keyboard!!)
+}
+
+         
 
             else -> {
                 var codeChar = code.toChar()
