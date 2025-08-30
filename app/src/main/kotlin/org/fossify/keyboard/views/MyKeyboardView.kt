@@ -1171,13 +1171,13 @@ class MyKeyboardView @JvmOverloads constructor(
      * handle the call.
      */
     private fun onLongPress(popupKey: MyKeyboard.Key, me: MotionEvent): Boolean {
+
         if (popupKey.code == KEYCODE_EMOJI) {
-            setCurrentKeyPressed(false)
-            SwitchLanguageDialog(this) {
-                mOnKeyboardActionListener?.reloadKeyboard()
-            }
-            return true
-        } else {
+    setCurrentKeyPressed(false)
+    openEmojiPalette()   // long press → open emoji panel
+    return true
+}
+ else {
             val popupKeyboardId = popupKey.popupResId
             if (popupKeyboardId != 0) {
                 mMiniKeyboardContainer = mMiniKeyboardCache[popupKey]
@@ -1951,17 +1951,4 @@ class MyKeyboardView @JvmOverloads constructor(
         }
     }
 
-override fun onLongPress(popupKey: Key): Boolean {
-    return if (popupKey.codes[0] == MyKeyboard.KEYCODE_EMOJI) {
-        // Long press emoji key → ζητάμε από το IME να ανοίξει το emoji panel
-        (context as? SimpleKeyboardIME)?.keyboardView?.openEmojiPalette()
-        true
-    } else {
-        super.onLongPress(popupKey)
-    }
-}
-
-
-
-    
 }
