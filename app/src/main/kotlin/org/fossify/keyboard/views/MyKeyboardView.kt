@@ -1948,4 +1948,17 @@ class MyKeyboardView @JvmOverloads constructor(
             this.width
         }
     }
+
+    override fun onLongPress(popupKey: Key): Boolean {
+    return if (popupKey.codes[0] == MyKeyboard.KEYCODE_EMOJI) {
+        // Long press emoji key → open emoji palette
+        openEmojiPalette()
+        true
+    } else {
+        super.onLongPress(popupKey)
+    }
+}
+
+
+    
 }
