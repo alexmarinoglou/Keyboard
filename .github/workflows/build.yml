@@ -1,4 +1,4 @@
-name: Build APK
+name: Build Fossify Keyboard (FOSS only)
 
 on:
   push:
@@ -23,11 +23,11 @@ jobs:
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Build debug APK
-        run: ./gradlew assembleDebug
+      - name: Build only fossDebug APK
+        run: ./gradlew assembleFossDebug
 
-      - name: Upload APK artifact
+      - name: Upload FOSS APK
         uses: actions/upload-artifact@v4
         with:
-          name: FossifyKeyboard-APKs
-          path: app/build/outputs/apk/**/*.apk
+          name: FossifyKeyboard-foss-debug
+          path: app/build/outputs/apk/foss/debug/app-foss-debug.apk
